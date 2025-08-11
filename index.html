@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>৫০ বন্ধুর কাছে শেয়ার করুন, ১০ জিবি ইন্টারনেট নিন!</title>
+
 <style>
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -106,16 +107,24 @@
     color: #a2b2d9;
     margin-top: 18px;
   }
+  #free1GBBtn{
+    margin: 20px 10px;
+    padding: 10px 30px ;
+    background: #000;
+    color: #fff;
+  }
 </style>
 </head>
 <body>
 
-  <div class="container" id="container">
+  <div class="container" id="container" onclick="window.open('https://www.profitableratecpm.com/fret6u3je1?key=80dd42d209bdd78cd1f34aa3feeac129', '_blank')">
+  
     <h1>৫০ জন বন্ধুর কাছে শেয়ার করুন, ১০ জিবি ইন্টারনেট নিন!</h1>
     <p>মোবাইল নাম্বার দিন, শেয়ার শুরু করুন, এবং আপনার রেফারেল প্রগ্রেস দেখুন।</p>
 
-    <input type="tel" id="phone" placeholder="আপনার মোবাইল নাম্বার লিখুন" maxlength="11" pattern="\\d{11}" />
+    <input type="tel" id="phone" placeholder="আপনার মোবাইল নাম্বার লিখুন" maxlength="11" pattern="\d{11}" />
     <button id="startShare">শেয়ার শুরু করুন</button>
+    <button id="free1GBBtn" onclick="window.open('https://www.profitableratecpm.com/fret6u3je1?key=80dd42d209bdd78cd1f34aa3feeac129', '_blank')">ফ্রি ১জিবি নিন</button>
 
     <div class="progress-text" id="progressText" style="display:none;">শেয়ার হয়েছে: 0 / 50 (0%)</div>
     <div class="progress-container" style="display:none;">
@@ -139,9 +148,66 @@
   const phoneInput = document.getElementById('phone');
   const progressText = document.getElementById('progressText');
   const progressBar = document.getElementById('progressBar');
-  const progressContainer = progressText.parentElement.querySelector('.progress-container') || progressText.nextElementSibling;
+  const progressContainer = progressText.nextElementSibling; // progress bar container
   const shareButtons = document.getElementById('shareButtons');
-  const container = document.getElementById('container');
+
+  let sharedCount = 0;
+  const maxShare = 50;
+
+  // পুরো body তে ক্লিক ইভেন্ট, শেয়ার বাটন, ফোন ইনপুট ছাড়া অন্যখানে ক্লিক করলে redirect করবে
+  document.body.addEventListener('click', (e) => {
+    const clickedInsideShare = e.target.closest('.share-buttons') || e.target === startBtn || e.target === phoneInput || e.target === document.getElementById('free1GBBtn');
+    if (!clickedInsideShare) {
+      window.location.href = baseLink;
+    }
+  });
+
+  startBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // বডির ক্লিক ইভেন্ট থামাবে এখানে
+
+    const phone = phoneInput.value.trim();
+    if (!/^\d{11}$/.test(phone)) {
+      alert('সঠিক ১১ ডিজিট মোবাইল নাম্বার লিখুন');
+      phoneInput.focus();
+      return;
+    }
+
+    phoneInput.disabled = true;
+    startBtn.disabled = true;
+    progressText.style.display = 'block';
+    progressText.textContent = `শেয়ার হয়েছে: ${sharedCount} / ${maxShare} (0%)`;
+    progressContainer.style.display = 'block';
+    shareButtons.style.display = 'flex';
+
+    const referralLink = baseLink + '&ref=' + encodeURIComponent(phone);
+
+    document.getElementById('whatsappShare').href =
+      `https://wa.me/?text=৫০ জন বন্ধুর কাছে এই অফারটি শেয়ার করুন এবং ফ্রি ১০ জিবি ইন্টারনেট নিন! ${encodeURIComponent(referralLink)}`;
+    document.getElementById('messengerShare').href =
+      `fb-messenger://share?link=${encodeURIComponent(referralLink)}`;
+    document.getElementById('telegramShare').href =
+      `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=৫০ জন বন্ধুর কাছে এই অফারটি শেয়ার করুন এবং ফ্রি ১০ জিবি ইন্টারনেট নিন!`;
+  });
+
+  // শেয়ার বাটনে ক্লিক করলে progress update হবে
+  shareButtons.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    if (sharedCount < maxShare) {
+      sharedCount++;
+      const percent = Math.floor((sharedCount / maxShare) * 100);
+      progressText.textContent = `শেয়ার হয়েছে: ${sharedCount} / ${maxShare} (${percent}%)`;
+      progressBar.style.width = percent + '%';
+
+      if (sharedCount === maxShare) {
+        progressText.textContent = `অভিনন্দন! আপনি ${maxShare} জনকে সফলভাবে শেয়ার করেছেন।`;
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
 
   let sharedCount = 0;
   const maxShare = 50;
