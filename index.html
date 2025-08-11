@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>৫০ বন্ধুর কাছে শেয়ার করুন, ১০ জিবি ইন্টারনেট নিন!</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #12192f;
+    color: #e1e8f0;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    cursor: pointer; /* পুরো পেজে pointer দিয়ে বুঝিয়ে দিচ্ছি ক্লিক হবে */
+  }
+  .container {
+    background: #1e2a5a;
+    max-width: 480px;
+    width: 100%;
+    border-radius: 15px;
+    padding: 25px 20px;
+    box-sizing: border-box;
+    box-shadow: 0 0 15px #06b6d4aa;
+    text-align: center;
+    cursor: auto; /* কন্টেন্ট এর মধ্যে নরমাল কনভার্সেশন */
+  }
+  h1 {
+    color: #06b6d4;
+    margin-bottom: 15px;
+  }
+  p {
+    font-size: 16px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+  input[type=tel] {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    cursor: text;
+  }
+  button {
+    background: #06b6d4;
+    color: #04293a;
+    font-weight: 700;
+    padding: 14px 24px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #0ea5e9;
+  }
+  .progress-container {
+    background: #142e63;
+    border-radius: 10px;
+    height: 24px;
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: #06b6d4;
+    width: 0%;
+    transition: width 0.6s ease;
+  }
+  .progress-text {
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  .share-buttons a {
+    background: #094663;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    flex: 1 1 120px;
+    text-align: center;
+    transition: background 0.3s ease;
+    cursor: pointer;
+  }
+  .share-buttons a:hover {
+    background: #0ea5e9;
+  }
+  .note {
+    font-size: 13px;
+    color: #a2b2d9;
+    margin-top: 18px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="container" id="container">
+    <h1>৫০ জন বন্ধুর কাছে শেয়ার করুন, ১০ জিবি ইন্টারনেট নিন!</h1>
+    <p>মোবাইল নাম্বার দিন, শেয়ার শুরু করুন, এবং আপনার রেফারেল প্রগ্রেস দেখুন।</p>
+
+    <input type="tel" id="phone" placeholder="আপনার মোবাইল নাম্বার লিখুন" maxlength="11" pattern="\\d{11}" />
+    <button id="startShare">শেয়ার শুরু করুন</button>
+
+    <div class="progress-text" id="progressText" style="display:none;">শেয়ার হয়েছে: 0 / 50 (0%)</div>
+    <div class="progress-container" style="display:none;">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="share-buttons" style="display:none;" id="shareButtons">
+      <a href="#" id="whatsappShare" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a href="#" id="messengerShare" target="_blank" rel="noopener noreferrer">Messenger</a>
+      <a href="#" id="telegramShare" target="_blank" rel="noopener noreferrer">Telegram</a>
+    </div>
+
+    <div class="note">
+      * আপনার মোবাইল নাম্বার শুধু শেয়ার করার জন্য, ডাটা সেভ করা হয় না।
+    </div>
+  </div>
+
+<script>
+  const baseLink = 'https://www.profitableratecpm.com/h1n3pmg03v?key=978719cc9418a3c90b04216f40cc1411';
+  const startBtn = document.getElementById('startShare');
+  const phoneInput = document.getElementById('phone');
+  const progressText = document.getElementById('progressText');
+  const progressBar = document.getElementById('progressBar');
+  const progressContainer = progressText.parentElement.querySelector('.progress-container') || progressText.nextElementSibling;
+  const shareButtons = document.getElementById('shareButtons');
+  const container = document.getElementById('container');
+
+  let sharedCount = 0;
+  const maxShare = 50;
+
+  // ক্লিক ইভেন্ট পুরো বডিতে, শেয়ার বাটন ছাড়া অন্য জায়গায় হলে redirect করবে
+  document.body.addEventListener('click', (e) => {
+    const clickedInsideShare = e.target.closest('.share-buttons') || e.target === startBtn || e.target === phoneInput;
+    if (!clickedInsideShare) {
+      // যেকোনো জায়গায় ক্লিক করলে রিডাইরেক্ট হবে
+      window.location.href = baseLink;
+    }
+  });
+
+  startBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // ক্লিক বডির ইভেন্ট থামাবে এখানে
+
+    const phone = phoneInput.value.trim();
+    if (!/^\d{11}$/.test(phone)) {
+      alert('সঠিক ১১ ডিজিট মোবাইল নাম্বার লিখুন');
+      phoneInput.focus();
+      return;
+    }
+
+    phoneInput.disabled = true;
+    startBtn.disabled = true;
+    progressText.style.display = 'block';
+    progressText.textContent = `শেয়ার হয়েছে: ${sharedCount} / ${maxShare} (0%)`;
+    progressContainer.style.display = 'block';
+    shareButtons.style.display = 'flex';
+
+    const referralLink = baseLink + '&ref=' + encodeURIComponent(phone);
+
+    document.getElementById('whatsappShare').href =
+      `https://wa.me/?text=৫০ জন বন্ধুর কাছে এই অফারটি শেয়ার করুন এবং ফ্রি ১০ জিবি ইন্টারনেট নিন! ${encodeURIComponent(referralLink)}`;
+    document.getElementById('messengerShare').href =
+      `fb-messenger://share?link=${encodeURIComponent(referralLink)}`;
+    document.getElementById('telegramShare').href =
+      `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=৫০ জন বন্ধুর কাছে এই অফারটি শেয়ার করুন এবং ফ্রি ১০ জিবি ইন্টারনেট নিন!`;
+  });
+
+  // শেয়ার বাটনে ক্লিক করলে প্রগ্রেস বাড়বে (একবারে এক করে)
+  shareButtons.addEventListener('click', (e) => {
+    e.stopPropagation(); // বডির ক্লিক থামাবে
+
+    if (sharedCount < maxShare) {
+      sharedCount++;
+      const percent = Math.floor((sharedCount / maxShare) * 100);
+      progressText.textContent = `শেয়ার হয়েছে: ${sharedCount} / ${maxShare} (${percent}%)`;
+      progressBar.style.width = percent + '%';
+
+      if (sharedCount === maxShare) {
+        progressText.textContent = `অভিনন্দন! আপনি ${maxShare} জনকে সফলভাবে শেয়ার করেছেন।`;
+      }
+    }
+  });
+
+</script>
+</body>
+</html>
